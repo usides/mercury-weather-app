@@ -1,0 +1,29 @@
+.row {
+  position: relative;
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 10px;
+}
+
+.row__arrow {
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  top: 50%;
+  width: 24px;
+  height: 24px;
+  background: url(./chevron.png) center center / contain no-repeat;
+  cursor: pointer;
+}
+
+.row__arrow_left {
+  left: -30px;
+  transform: translateY(-50%);
+}
+
+.row__arrow_right {
+  right: -30px;
+
+  transform: rotateZ(180deg) translateY(50%);
+}

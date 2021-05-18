@@ -1,0 +1,29 @@
+.select {
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  margin-top: 1rem;
+  display: block;
+  width: 252px;
+  height: 48px;
+  border-radius: 8px;
+  color: #8083a4;
+  background-color: rgba(128, 131, 164, 0.06);
+  border: solid 2px rgba(128, 131, 164, 0.06);
+  text-indent: 0.5rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.select_filled {
+  color: #2c2d76;
+}
+
+.select:focus,
+.select:hover {
+  border-color: #8083a4;
+}
+
+.select:active {
+  border-color: #373af5;
+}
