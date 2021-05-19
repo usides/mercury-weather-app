@@ -12,8 +12,8 @@ function getWeatherFormattedDate(dt) {
     .toLowerCase();
 }
 
-function tempInCelsius(tempF) {
-  const temp = Math.round(tempF - 273.15);
+function tempInCelsius(tempK) {
+  const temp = Math.round(tempK - 273.15);
   const sign = temp > 0 ? '+' : '';
   return `${sign}${temp}˚`;
 }
@@ -21,12 +21,14 @@ function tempInCelsius(tempF) {
 const getIconLink = (iconCode) =>
   `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
 
-function adaptWeatherData({ dt, temp: { day }, weather: [{ icon }] }) {
-  return {
-    date: getWeatherFormattedDate(dt),
-    temp: tempInCelsius(day),
-    icon: getIconLink(icon),
-  };
+function adaptWeatherData({ dt, temp, weather: [{ icon }], temp: { day } }) {
+  const obj = { icon: getIconLink(icon), date: getWeatherFormattedDate(dt) };
+  if (day) {
+    obj.temp = tempInCelsius(day);
+  } else {
+    obj.temp = tempInCelsius(temp);
+  }
+  return obj;
 }
 
 export const getSevenDaysForecastFromApi = async (city) => {
@@ -41,8 +43,7 @@ export const getGoneDayWeatherFromApi = async (city, dt) => {
   const { lat, lon } = cities[city];
   const url = `https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=${lat}&lon=${lon}&dt=${dt}&appid=${process.env.REACT_APP_OPEN_WEATHER_MAP_API_KEY}`;
   const response = await fetch(url);
-  const data = await response.json();
-  return data;
-  // .then((d) => d.daily);
-  // return data.map((day) => adaptWeatherData(day));
+  const data = await response.json().then((d) => d.hourly[12]);
+  console.log(data);
+  return adaptWeatherData(data);
 };

@@ -6,8 +6,24 @@ const DateSelect = ({ selectDate }) => {
 
   const handleChange = (e) => {
     const selected = e.target.value;
+    const selectedDt = e.target.valueAsNumber;
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const todayDtUtc = today.getTime();
+    const timeZoneOffsetMs = today.getTimezoneOffset() * 60 * 1000 * -1;
+    const todayDt = todayDtUtc + timeZoneOffsetMs;
+
+    if (selectedDt >= todayDt || selectedDt <= todayDt - 7 * 24 * 3600 * 1000)
+      return;
+
     setSelectedValue(selected);
-    selectDate(e.target.valueAsNumber / 1000);
+    selectDate(selectedDt / 1000);
+
+    console.log(todayDt);
+    console.log(e.target.valueAsNumber);
+
+    console.log(todayDt - e.target.valueAsNumber);
   };
 
   const isFilled = () => {

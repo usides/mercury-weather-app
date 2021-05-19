@@ -22,6 +22,11 @@ function App() {
 
   //--------------------------------------------------
 
+  const selectCityForForecast = async (city) => {
+    const forecast = await getSevenDaysForecast(city);
+    setCurrentForecastData({ days: forecast, head: 0 });
+  };
+
   const getSevenDaysForecast = async (city) => {
     if (sevenDaysForecastCache.hasOwnProperty(city)) {
       return sevenDaysForecastCache[city];
@@ -33,17 +38,6 @@ function App() {
       }));
       return apiData;
     }
-  };
-
-  useEffect(() => {
-    const { days, head } = currentForecastData;
-    const daysToShow = days.slice(head, head + 3);
-    setForecastToShow(daysToShow);
-  }, [currentForecastData]);
-
-  const selectCityForForecast = async (city) => {
-    const forecast = await getSevenDaysForecast(city);
-    setCurrentForecastData({ days: forecast, head: 0 });
   };
 
   const changeForecastToShow = (direction) => {
@@ -60,6 +54,12 @@ function App() {
     }
   };
 
+  useEffect(() => {
+    const { days, head } = currentForecastData;
+    const daysToShow = days.slice(head, head + 3);
+    setForecastToShow(daysToShow);
+  }, [currentForecastData]);
+
   //--------------------------------------------------------
 
   const selectGoneDayCity = (city) => {
@@ -73,9 +73,14 @@ function App() {
   useEffect(() => {
     const { dt, city } = currentGoneDayFields;
     if (dt && city) {
-      console.log(getGoneDayWeatherFromApi(city, dt));
+      getGoneDayWeather(city, dt);
     }
   }, [currentGoneDayFields]);
+
+  const getGoneDayWeather = async (city, dt) => {
+    const data = await getGoneDayWeatherFromApi(city, dt);
+    console.log(data);
+  };
 
   return (
     <div className='App'>
