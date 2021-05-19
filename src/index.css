@@ -36,15 +36,17 @@ code {
   flex-direction: column;
 }
 
+.header {
+  flex-shrink: 0;
+  padding: 2rem 0 2rem;
+}
+
 .heading {
   color: #fff;
   font-size: 5rem;
   max-width: 610px;
   margin: 0 auto;
   font-weight: bold;
-  flex-shrink: 0;
-  margin-top: 2rem;
-  flex-shrink: 0;
 }
 
 .heading__left {
