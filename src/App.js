@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react';
-import { getSevenDaysForecastFromApi } from './api_helpers';
+import {
+  getSevenDaysForecastFromApi,
+  getGoneDayWeatherFromApi,
+} from './api_helpers';
 import Pane from './components/Pane/Pane';
 import CitySelect from './components/CitySelect/CitySelect';
 import CardsRow from './components/CardsRow/CardsRow';
+import DateSelect from './components/DateSelect/DateSelect';
 
 function App() {
   const [sevenDaysForecastCache, setSevenDaysForecastCache] = useState({});
@@ -11,6 +15,12 @@ function App() {
     head: 0,
   });
   const [forecastToShow, setForecastToShow] = useState([]);
+  const [currentGoneDayFields, setCurrentGoneDayFields] = useState({
+    dt: '',
+    city: '',
+  });
+
+  //--------------------------------------------------
 
   const getSevenDaysForecast = async (city) => {
     if (sevenDaysForecastCache.hasOwnProperty(city)) {
@@ -50,6 +60,23 @@ function App() {
     }
   };
 
+  //--------------------------------------------------------
+
+  const selectGoneDayCity = (city) => {
+    setCurrentGoneDayFields((state) => ({ ...state, city }));
+  };
+
+  const selectGoneDayDate = (dt) => {
+    setCurrentGoneDayFields((state) => ({ ...state, dt }));
+  };
+
+  useEffect(() => {
+    const { dt, city } = currentGoneDayFields;
+    if (dt && city) {
+      console.log(getGoneDayWeatherFromApi(city, dt));
+    }
+  }, [currentGoneDayFields]);
+
   return (
     <div className='App'>
       <header className='header'>
@@ -58,13 +85,13 @@ function App() {
           <span className='heading__right'>forecast</span>
         </h1>
       </header>
-      <main className='main-section'>
+      <main className='main_section'>
         <Pane
           isPlaceholder={!Boolean(forecastToShow.length)}
           headerText='7 Days Forecast'
         >
           <form>
-            <CitySelect selectCityForForecast={selectCityForForecast} />
+            <CitySelect selectCity={selectCityForForecast} />
           </form>
           {Boolean(forecastToShow.length) && (
             <CardsRow
@@ -73,9 +100,10 @@ function App() {
             />
           )}
         </Pane>
-        <Pane headerText='Forecast for a Date in the Past'>
-          <form>
-            <CitySelect />
+        <Pane isPlaceholder='true' headerText='Forecast for a Date in the Past'>
+          <form className='form'>
+            <CitySelect selectCity={selectGoneDayCity} />
+            <DateSelect selectDate={selectGoneDayDate} />
           </form>
         </Pane>
       </main>

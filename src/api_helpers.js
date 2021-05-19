@@ -21,10 +21,7 @@ function tempInCelsius(tempF) {
 const getIconLink = (iconCode) =>
   `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
 
-function adaptWeatherData(
-  { dt, temp: { day }, weather: [{ icon }] },
-  currentUnits,
-) {
+function adaptWeatherData({ dt, temp: { day }, weather: [{ icon }] }) {
   return {
     date: getWeatherFormattedDate(dt),
     temp: tempInCelsius(day),
@@ -38,4 +35,14 @@ export const getSevenDaysForecastFromApi = async (city) => {
   const response = await fetch(url);
   const data = await response.json().then((d) => d.daily);
   return data.map((day) => adaptWeatherData(day));
+};
+
+export const getGoneDayWeatherFromApi = async (city, dt) => {
+  const { lat, lon } = cities[city];
+  const url = `https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=${lat}&lon=${lon}&dt=${dt}&appid=${process.env.REACT_APP_OPEN_WEATHER_MAP_API_KEY}`;
+  const response = await fetch(url);
+  const data = await response.json();
+  return data;
+  // .then((d) => d.daily);
+  // return data.map((day) => adaptWeatherData(day));
 };

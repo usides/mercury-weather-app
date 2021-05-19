@@ -60,12 +60,17 @@ code {
   margin-top: -1rem;
 }
 
-.main-section {
+.main_section {
   flex: 1 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+}
+
+.form {
+  display: flex;
+  justify-content: space-between;
 }
 
 .footer {
