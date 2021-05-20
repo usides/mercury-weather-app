@@ -44,6 +44,5 @@ export const getGoneDayWeatherFromApi = async (city, dt) => {
   const url = `https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=${lat}&lon=${lon}&dt=${dt}&appid=${process.env.REACT_APP_OPEN_WEATHER_MAP_API_KEY}`;
   const response = await fetch(url);
   const data = await response.json().then((d) => d.hourly[12]);
-  console.log(data);
   return adaptWeatherData(data);
 };

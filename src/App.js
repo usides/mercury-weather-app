@@ -7,6 +7,7 @@ import Pane from './components/Pane/Pane';
 import CitySelect from './components/CitySelect/CitySelect';
 import CardsRow from './components/CardsRow/CardsRow';
 import DateSelect from './components/DateSelect/DateSelect';
+import WeatherCard from './components/WeatherCard/WeatherCard';
 
 function App() {
   const [sevenDaysForecastCache, setSevenDaysForecastCache] = useState({});
@@ -19,6 +20,9 @@ function App() {
     dt: '',
     city: '',
   });
+  const [goneDayWeatherCache, setGoneDayWeatherCache] = useState({});
+  const [currentGoneDayWeatherData, setCurrentGoneDayWeatherData] =
+    useState(null);
 
   //--------------------------------------------------
 
@@ -75,12 +79,22 @@ function App() {
     if (dt && city) {
       getGoneDayWeather(city, dt);
     }
-  }, [currentGoneDayFields]);
 
-  const getGoneDayWeather = async (city, dt) => {
-    const data = await getGoneDayWeatherFromApi(city, dt);
-    console.log(data);
-  };
+    async function getGoneDayWeather(city, dt) {
+      const cacheKey = `${city}-${dt}`;
+
+      if (goneDayWeatherCache.hasOwnProperty(cacheKey)) {
+        setCurrentGoneDayWeatherData(goneDayWeatherCache[cacheKey]);
+      } else {
+        const apiData = await getGoneDayWeatherFromApi(city, dt);
+        setGoneDayWeatherCache((state) => ({
+          ...state,
+          [cacheKey]: apiData,
+        }));
+        setCurrentGoneDayWeatherData(apiData);
+      }
+    }
+  }, [currentGoneDayFields]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className='App'>
@@ -105,11 +119,21 @@ function App() {
             />
           )}
         </Pane>
-        <Pane isPlaceholder='true' headerText='Forecast for a Date in the Past'>
+        <Pane
+          isPlaceholder={!Boolean(currentGoneDayWeatherData)}
+          headerText='Forecast for a Date in the Past'
+        >
           <form className='form'>
             <CitySelect selectCity={selectGoneDayCity} />
             <DateSelect selectDate={selectGoneDayDate} />
           </form>
+          {Boolean(currentGoneDayWeatherData) && (
+            <WeatherCard
+              date={currentGoneDayWeatherData.date}
+              icon={currentGoneDayWeatherData.icon}
+              temp={currentGoneDayWeatherData.temp}
+            />
+          )}
         </Pane>
       </main>
       <footer className='footer'>
