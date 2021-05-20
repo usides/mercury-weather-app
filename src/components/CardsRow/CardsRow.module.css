@@ -1,6 +1,6 @@
 .row {
   position: relative;
-  /* margin-top: 2rem; */
+
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-column-gap: 10px;
@@ -9,7 +9,7 @@
 .row__arrow {
   border: none;
   position: absolute;
-  top: 50%;
+  top: calc(50% + 1rem);
   width: 24px;
   height: 24px;
   background: url(./chevron.png) center center / contain no-repeat;
@@ -25,4 +25,10 @@
   right: -30px;
 
   transform: rotateZ(180deg) translateY(50%);
+}
+
+@media screen and (max-width: 650px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
 }

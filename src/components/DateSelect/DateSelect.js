@@ -15,7 +15,7 @@ const DateSelect = ({ selectDate }) => {
     const timeZoneOffsetMs = today.getTimezoneOffset() * 60 * 1000 * -1;
     const todayDt = todayDtUtc + timeZoneOffsetMs;
 
-    if (selectedDt >= todayDt || selectedDt <= todayDt - 7 * 24 * 3600 * 1000) {
+    if (selectedDt >= todayDt || selectedDt <= todayDt - 6 * 24 * 3600 * 1000) {
       setShowAlert(true);
     } else {
       setShowAlert(false);
@@ -23,9 +23,9 @@ const DateSelect = ({ selectDate }) => {
       selectDate(selectedDt / 1000);
     }
 
-    // console.log(todayDt);
-    // console.log(e.target.valueAsNumber);
-    // console.log(todayDt - e.target.valueAsNumber);
+    console.log(todayDt);
+    console.log(e.target.valueAsNumber);
+    console.log(todayDt - e.target.valueAsNumber);
   };
 
   const isFilled = () => {

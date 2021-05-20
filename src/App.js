@@ -8,23 +8,27 @@ import CitySelect from './components/CitySelect/CitySelect';
 import CardsRow from './components/CardsRow/CardsRow';
 import DateSelect from './components/DateSelect/DateSelect';
 import WeatherCard from './components/WeatherCard/WeatherCard';
+import { useMediaQuery } from './query';
 
 function App() {
   const [sevenDaysForecastCache, setSevenDaysForecastCache] = useState({});
   const [currentForecastData, setCurrentForecastData] = useState({
-    days: [],
-    head: 0,
+    days: null,
+    head: null,
   });
-  const [forecastToShow, setForecastToShow] = useState([]);
+  const [forecastToShow, setForecastToShow] = useState(null);
   const [currentGoneDayFields, setCurrentGoneDayFields] = useState({
-    dt: '',
-    city: '',
+    dt: null,
+    city: null,
   });
   const [goneDayWeatherCache, setGoneDayWeatherCache] = useState({});
   const [currentGoneDayWeatherData, setCurrentGoneDayWeatherData] =
     useState(null);
 
   //--------------------------------------------------
+
+  let isPageShort = useMediaQuery('(max-width: 650px)');
+  let gap = isPageShort ? 1 : 3;
 
   const selectCityForForecast = async (city) => {
     const forecast = await getSevenDaysForecast(city);
@@ -44,9 +48,18 @@ function App() {
     }
   };
 
+  useEffect(() => {
+    if (currentForecastData.days === null) return;
+    const { days, head } = currentForecastData;
+    // if (isPageShort) setCurrentForecastData((state) => ({ ...state, head: 0 }));
+    const daysToShow = days.slice(head, head + gap);
+    setForecastToShow(daysToShow);
+  }, [currentForecastData, gap, isPageShort]);
+
   const changeForecastToShow = (direction) => {
+    if (forecastToShow === null) return;
     if (direction === 'right') {
-      if (currentForecastData.head + 3 === currentForecastData.days.length)
+      if (currentForecastData.head + gap >= currentForecastData.days.length)
         return;
       setCurrentForecastData((state) => ({ ...state, head: state.head + 1 }));
     } else if (direction === 'left') {
@@ -58,11 +71,22 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    const { days, head } = currentForecastData;
-    const daysToShow = days.slice(head, head + 3);
-    setForecastToShow(daysToShow);
-  }, [currentForecastData]);
+  // const handleKeyDown = (e) => {
+  //   if (e.keyCode === 37) {
+  //     changeForecastToShow('left');
+  //     console.log('37');
+  //   } else if (e.keyCode === 39) {
+  //     changeForecastToShow('right');
+  //     console.log('39');
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   document.addEventListener('keydown', handleKeyDown);
+  //   return () => {
+  //     window.removeEventListener('keydown', handleKeyDown);
+  //   };
+  // }, []);
 
   //--------------------------------------------------------
 
@@ -106,13 +130,13 @@ function App() {
       </header>
       <main className='main_section'>
         <Pane
-          isPlaceholder={!Boolean(forecastToShow.length)}
+          isPlaceholder={!Boolean(forecastToShow)}
           headerText='7 Days Forecast'
         >
           <form>
             <CitySelect selectCity={selectCityForForecast} />
           </form>
-          {Boolean(forecastToShow.length) && (
+          {Boolean(forecastToShow) && (
             <CardsRow
               cardsData={forecastToShow}
               changeForecastToShow={changeForecastToShow}
@@ -137,7 +161,9 @@ function App() {
         </Pane>
       </main>
       <footer className='footer'>
-        <p className='footer__text'>C ЛЮБОВЬЮ ОТ MERCURY DEVELOPMENT</p>
+        <p className='footer__text'>
+          C ЛЮБОВЬЮ ОТ MERCURY DEVELOPMENT & USIDES
+        </p>
       </footer>
     </div>
   );

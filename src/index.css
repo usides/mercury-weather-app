@@ -66,6 +66,7 @@ code {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  padding: 1rem;
 }
 
 .form {
@@ -81,4 +82,27 @@ code {
   text-transform: uppercase;
   color: #fff;
   font-size: 0.9rem;
+}
+
+@media screen and (max-width: 650px) {
+  .heading {
+    max-width: 370px;
+    font-size: 3rem;
+  }
+  .heading__right {
+    margin-top: -0.5rem;
+  }
+
+  .form {
+    flex-wrap: wrap;
+    flex-direction: column;
+    min-height: 110px;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .heading {
+    max-width: 280px;
+    font-size: 2.3rem;
+  }
 }

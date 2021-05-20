@@ -1,7 +1,6 @@
 .custom_select {
   position: relative;
-  width: 252px;
-  height: 48px;
+  min-width: 252px;
 }
 
 .custom_select::after {
@@ -23,6 +22,7 @@
   font-weight: 400;
   font-size: 1rem;
   display: block;
+  padding: 0.8rem 0;
   width: 100%;
   height: 100%;
   border-radius: 8px;
@@ -46,4 +46,10 @@
 
 .custom_select__select:active {
   border-color: #373af5;
+}
+
+@media screen and (max-width: 650px) {
+  .custom_select {
+    min-width: 236px;
+  }
 }
