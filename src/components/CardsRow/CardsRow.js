@@ -1,8 +1,6 @@
 import styles from './CardsRow.module.css';
 import WeatherCard from '../WeatherCard/WeatherCard';
 
-import React from 'react';
-
 const CardsRow = ({ cardsData, changeForecastToShow }) => {
   return (
     <div className={styles.row}>

@@ -10,32 +10,59 @@ import DateSelect from './components/DateSelect/DateSelect';
 import WeatherCard from './components/WeatherCard/WeatherCard';
 import { useMediaQuery } from './query';
 
+interface CurrentForecastData {
+  days: Array<Object>;
+  head: number;
+}
+
+interface SevenDaysForecastCache {
+  [key: string]: Array<Object>;
+}
+
+interface CurrentGoneDayFields {
+  dt: string;
+  city: string;
+}
+
+interface GoneDayWeatherCache {
+  [key: string]: any;
+}
+
+interface CurrentGoneDayWeatherData {
+  [key: string]: any;
+}
+
 function App() {
-  const [sevenDaysForecastCache, setSevenDaysForecastCache] = useState({});
-  const [currentForecastData, setCurrentForecastData] = useState({
-    days: null,
-    head: null,
-  });
-  const [forecastToShow, setForecastToShow] = useState(null);
-  const [currentGoneDayFields, setCurrentGoneDayFields] = useState({
-    dt: null,
-    city: null,
-  });
-  const [goneDayWeatherCache, setGoneDayWeatherCache] = useState({});
+  const [sevenDaysForecastCache, setSevenDaysForecastCache] =
+    useState<SevenDaysForecastCache>({});
+  const [currentForecastData, setCurrentForecastData] =
+    useState<CurrentForecastData>({
+      days: [],
+      head: 0,
+    });
+  const [forecastToShow, setForecastToShow] =
+    useState<Array<Object> | null>(null);
+  const [currentGoneDayFields, setCurrentGoneDayFields] =
+    useState<CurrentGoneDayFields>({
+      dt: '',
+      city: '',
+    });
+  const [goneDayWeatherCache, setGoneDayWeatherCache] =
+    useState<GoneDayWeatherCache>({});
   const [currentGoneDayWeatherData, setCurrentGoneDayWeatherData] =
-    useState(null);
+    useState<CurrentGoneDayWeatherData>({});
 
   //--------------------------------------------------
 
   let isPageShort = useMediaQuery('(max-width: 650px)');
   let gap = isPageShort ? 1 : 3;
 
-  const selectCityForForecast = async (city) => {
+  const selectCityForForecast = async (city: string) => {
     const forecast = await getSevenDaysForecast(city);
     setCurrentForecastData({ days: forecast, head: 0 });
   };
 
-  const getSevenDaysForecast = async (city) => {
+  const getSevenDaysForecast = async (city: string) => {
     if (sevenDaysForecastCache.hasOwnProperty(city)) {
       return sevenDaysForecastCache[city];
     } else {
@@ -49,14 +76,13 @@ function App() {
   };
 
   useEffect(() => {
-    if (currentForecastData.days === null) return;
+    if (currentForecastData.days.length === 0) return;
     const { days, head } = currentForecastData;
-    // if (isPageShort) setCurrentForecastData((state) => ({ ...state, head: 0 }));
     const daysToShow = days.slice(head, head + gap);
     setForecastToShow(daysToShow);
   }, [currentForecastData, gap, isPageShort]);
 
-  const changeForecastToShow = (direction) => {
+  const changeForecastToShow = (direction: string) => {
     if (forecastToShow === null) return;
     if (direction === 'right') {
       if (currentForecastData.head + gap >= currentForecastData.days.length)
@@ -90,11 +116,11 @@ function App() {
 
   //--------------------------------------------------------
 
-  const selectGoneDayCity = (city) => {
+  const selectGoneDayCity = (city: string) => {
     setCurrentGoneDayFields((state) => ({ ...state, city }));
   };
 
-  const selectGoneDayDate = (dt) => {
+  const selectGoneDayDate = (dt: string) => {
     setCurrentGoneDayFields((state) => ({ ...state, dt }));
   };
 
@@ -104,7 +130,7 @@ function App() {
       getGoneDayWeather(city, dt);
     }
 
-    async function getGoneDayWeather(city, dt) {
+    async function getGoneDayWeather(city: string, dt: string) {
       const cacheKey = `${city}-${dt}`;
 
       if (goneDayWeatherCache.hasOwnProperty(cacheKey)) {
@@ -144,14 +170,16 @@ function App() {
           )}
         </Pane>
         <Pane
-          isPlaceholder={!Boolean(currentGoneDayWeatherData)}
+          isPlaceholder={
+            !Boolean(Object.keys(currentGoneDayWeatherData).length)
+          }
           headerText='Forecast for a Date in the Past'
         >
           <form className='form'>
             <CitySelect selectCity={selectGoneDayCity} />
             <DateSelect selectDate={selectGoneDayDate} />
           </form>
-          {Boolean(currentGoneDayWeatherData) && (
+          {Boolean(Object.keys(currentGoneDayWeatherData).length) && (
             <WeatherCard
               date={currentGoneDayWeatherData.date}
               icon={currentGoneDayWeatherData.icon}

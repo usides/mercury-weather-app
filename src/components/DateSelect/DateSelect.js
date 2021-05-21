@@ -23,9 +23,9 @@ const DateSelect = ({ selectDate }) => {
       selectDate(selectedDt / 1000);
     }
 
-    console.log(todayDt);
-    console.log(e.target.valueAsNumber);
-    console.log(todayDt - e.target.valueAsNumber);
+    // console.log(todayDt);
+    // console.log(e.target.valueAsNumber);
+    // console.log(todayDt - e.target.valueAsNumber);
   };
 
   const isFilled = () => {
