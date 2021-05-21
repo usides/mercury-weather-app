@@ -1,8 +1,17 @@
-import React from 'react';
 import styles from './Pane.module.css';
 import placeholder from './placeholder.png';
+import { FunctionComponent } from 'react';
 
-const Pane = ({ headerText, isPlaceholder, children }) => {
+interface PaneProps {
+  headerText: string;
+  isPlaceholder: boolean;
+}
+
+const Pane: FunctionComponent<PaneProps> = ({
+  headerText,
+  isPlaceholder,
+  children,
+}) => {
   return (
     <section className={styles.pane}>
       <h2 className={styles.pane__header}>{headerText}</h2>
