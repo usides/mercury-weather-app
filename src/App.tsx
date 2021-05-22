@@ -8,7 +8,7 @@ import CitySelect from './components/CitySelect/CitySelect';
 import CardsRow from './components/CardsRow/CardsRow';
 import DateSelect from './components/DateSelect/DateSelect';
 import WeatherCard from './components/WeatherCard/WeatherCard';
-import { useMediaQuery } from './query';
+import { useMediaQuery } from './media_query';
 
 interface CurrentForecastData {
   days: Array<Object>;

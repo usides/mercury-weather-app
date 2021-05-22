@@ -72,6 +72,7 @@ code {
 .form {
   display: flex;
   justify-content: space-between;
+  min-height: 52px;
 }
 
 .footer {
@@ -96,7 +97,7 @@ code {
   .form {
     flex-wrap: wrap;
     flex-direction: column;
-    min-height: 110px;
+    min-height: 120px;
   }
 }
 
