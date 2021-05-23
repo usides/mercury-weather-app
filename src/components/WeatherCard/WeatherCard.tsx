@@ -1,8 +1,17 @@
 import styles from './WeatherCard.module.css';
+import { FunctionComponent } from 'react';
 
-import React from 'react';
+interface WeatherCardProps {
+  date: string;
+  icon: string;
+  temp: string;
+}
 
-const WeatherCard = ({ date, icon, temp }) => {
+const WeatherCard: FunctionComponent<WeatherCardProps> = ({
+  date,
+  icon,
+  temp,
+}) => {
   return (
     <div className={styles.card}>
       <p className={styles.card__date}>{date}</p>
