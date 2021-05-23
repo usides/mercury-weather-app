@@ -1,12 +1,17 @@
 import { useState, useRef } from 'react';
 import styles from './DateSelect.module.css';
+import { FunctionComponent } from 'react';
 
-const DateSelect = ({ selectDate }) => {
+interface DateSelectProps {
+  selectDate: Function;
+}
+
+const DateSelect: FunctionComponent<DateSelectProps> = ({ selectDate }) => {
   const [selectedValue, setSelectedValue] = useState('');
 
-  const dateInput = useRef(null);
+  const dateInput = useRef<HTMLInputElement>(null);
 
-  const getDateString = (dateObj) => {
+  const getDateString = (dateObj: Date) => {
     let year = dateObj.getUTCFullYear();
     let date =
       String(dateObj.getUTCDate()).length > 1
@@ -20,13 +25,9 @@ const DateSelect = ({ selectDate }) => {
     return `${year}-${month}-${date}`;
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selected = e.target.value;
     const selectedDt = e.target.valueAsNumber;
-    console.log(e.target.value);
-
-    const today = new Date();
-    console.log(getDateString(today));
 
     setSelectedValue(selected);
     selectDate(selectedDt / 1000);
@@ -37,13 +38,13 @@ const DateSelect = ({ selectDate }) => {
     return false;
   };
 
-  let maxDate = new Date();
+  const maxDate = new Date();
   maxDate.setDate(maxDate.getDate() - 1);
-  maxDate = getDateString(maxDate);
+  const maxDateString = getDateString(maxDate);
 
-  let minDate = new Date();
+  const minDate = new Date();
   minDate.setDate(minDate.getDate() - 5);
-  minDate = getDateString(minDate);
+  const minDateString = getDateString(minDate);
 
   return (
     <div className={styles.wrapper}>
@@ -57,16 +58,11 @@ const DateSelect = ({ selectDate }) => {
         }
         onChange={handleChange}
         value={selectedValue}
-        max={maxDate}
-        min={minDate}
+        max={maxDateString}
+        min={minDateString}
       />
       {!isFilled() && (
-        <p
-          className={styles.wrapper__input_placeholder}
-          onClick={() => dateInput.current.click()}
-        >
-          Select date
-        </p>
+        <p className={styles.wrapper__input_placeholder}>Select date</p>
       )}
     </div>
   );

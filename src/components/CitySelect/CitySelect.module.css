@@ -51,6 +51,6 @@
 
 @media screen and (max-width: 650px) {
   .custom_select {
-    min-width: 236px;
+    min-width: 100%;
   }
 }

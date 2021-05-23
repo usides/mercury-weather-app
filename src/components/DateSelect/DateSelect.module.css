@@ -79,6 +79,6 @@
 @media screen and (max-width: 650px) {
   .wrapper {
     width: auto;
-    min-width: 236px;
+    min-width: auto;
   }
 }
