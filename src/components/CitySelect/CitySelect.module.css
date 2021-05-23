@@ -52,6 +52,14 @@
   color: #2c2d76;
 }
 
+.custom_select__field:focus {
+  border-color: #8083a4;
+}
+
+.custom_select__field___active:focus {
+  border-color: #373af5;
+}
+
 .field__text_holder {
   margin: 0;
   padding: 0;
@@ -112,20 +120,6 @@
 
 .options_pane__item:hover {
   background-color: #f8f8fa;
-}
-
-/*  */
-.custom_select__select___filled {
-  color: #2c2d76;
-}
-
-.custom_select__select:focus,
-.custom_select__select:hover {
-  border-color: #8083a4;
-}
-
-.custom_select__select:active {
-  border-color: #373af5;
 }
 
 @media screen and (max-width: 650px) {

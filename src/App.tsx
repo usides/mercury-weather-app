@@ -52,8 +52,6 @@ function App() {
   const [currentGoneDayWeatherData, setCurrentGoneDayWeatherData] =
     useState<CurrentGoneDayWeatherData>({});
 
-  //--------------------------------------------------
-
   let isPageShort = useMediaQuery('(max-width: 650px)');
   let gap = isPageShort ? 1 : 3;
 
@@ -96,25 +94,6 @@ function App() {
       }));
     }
   };
-
-  // const handleKeyDown = (e) => {
-  //   if (e.keyCode === 37) {
-  //     changeForecastToShow('left');
-  //     console.log('37');
-  //   } else if (e.keyCode === 39) {
-  //     changeForecastToShow('right');
-  //     console.log('39');
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   document.addEventListener('keydown', handleKeyDown);
-  //   return () => {
-  //     window.removeEventListener('keydown', handleKeyDown);
-  //   };
-  // }, []);
-
-  //--------------------------------------------------------
 
   const selectGoneDayCity = (city: keyof typeof cities) => {
     setCurrentGoneDayFields((state) => ({ ...state, city }));
@@ -160,8 +139,10 @@ function App() {
           headerText='7 Days Forecast'
         >
           <form>
-            {/* <CitySelect selectCity={selectCityForForecast} /> */}
-            <CitySelect selectCity={selectCityForForecast} />
+            <CitySelect
+              selectCity={selectCityForForecast}
+              changeForecastToShow={changeForecastToShow}
+            />
           </form>
           {Boolean(forecastToShow.length) && (
             <CardsRow
