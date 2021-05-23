@@ -36,11 +36,17 @@ const CitySelect: FunctionComponent<CitySelectProps> = ({ selectCity }) => {
         <option style={{ display: `none` }} disabled>
           Select city
         </option>
-        {Object.keys(cities).map((city, index) => (
-          <option key={index} value={city}>
-            {city}
-          </option>
-        ))}
+        {Object.keys(cities).map((city, index) => {
+          if (index === 0) {
+            return '';
+          } else {
+            return (
+              <option key={index} value={city}>
+                {city}
+              </option>
+            );
+          }
+        })}
       </select>
     </div>
   );

@@ -9,6 +9,7 @@ import CardsRow from './components/CardsRow/CardsRow';
 import DateSelect from './components/DateSelect/DateSelect';
 import WeatherCard from './components/WeatherCard/WeatherCard';
 import { useMediaQuery } from './media_query';
+import cities from './city_conf';
 
 interface CurrentForecastData {
   days: Array<Object>;
@@ -21,7 +22,7 @@ interface SevenDaysForecastCache {
 
 interface CurrentGoneDayFields {
   dt: string;
-  city: string;
+  city: keyof typeof cities;
 }
 
 interface GoneDayWeatherCache {
@@ -56,12 +57,12 @@ function App() {
   let isPageShort = useMediaQuery('(max-width: 650px)');
   let gap = isPageShort ? 1 : 3;
 
-  const selectCityForForecast = async (city: string) => {
+  const selectCityForForecast = async (city: keyof typeof cities) => {
     const forecast = await getSevenDaysForecast(city);
     setCurrentForecastData({ days: forecast, head: 0 });
   };
 
-  const getSevenDaysForecast = async (city: string) => {
+  const getSevenDaysForecast = async (city: keyof typeof cities) => {
     if (sevenDaysForecastCache.hasOwnProperty(city)) {
       return sevenDaysForecastCache[city];
     } else {
@@ -115,7 +116,7 @@ function App() {
 
   //--------------------------------------------------------
 
-  const selectGoneDayCity = (city: string) => {
+  const selectGoneDayCity = (city: keyof typeof cities) => {
     setCurrentGoneDayFields((state) => ({ ...state, city }));
   };
 
@@ -129,7 +130,7 @@ function App() {
       getGoneDayWeather(city, dt);
     }
 
-    async function getGoneDayWeather(city: string, dt: string) {
+    async function getGoneDayWeather(city: keyof typeof cities, dt: string) {
       const cacheKey = `${city}-${dt}`;
 
       if (goneDayWeatherCache.hasOwnProperty(cacheKey)) {
