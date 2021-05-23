@@ -1,70 +1,38 @@
-# Getting Started with Create React App
+# Mercury Academy Weather App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Добрый день, Mercury Development Team!
 
-## Available Scripts
+Большое спасибо за отлично подготовленное и оформленное тестовое задание.
 
-In the project directory, you can run:
+До начала работы над вашим заданием я не имел опыта работы с фреймворками / библиотеками для разработки пользовательских интерфейсов и языком TypeScript. Мое обучение front-end технологиям складывалось так, что именно в момент получения задания я стоял на пороге выбора своего первого фреймворка. Очевидно, что ваше задание помогло сделать выбор в пользу React =). Ввиду того, что я не мог оценить сколько времени мне понадобится, чтобы изучить и применить базовые знания React и TypeScript, в написании этого приложения я использовал MVP подход.
 
-### `npm start`
+Моей целью было написать минимально функционирующее приложение на React с последующим его улучшением согласно техническим требованиям и дизайну.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Несколько дней я потратил на изучение документации React и Create React App, прежде чем смог сделать обособленный компонент с логикой и подключёнными стилями.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Подключение к API не вызвало затруднений и когда я немного освоился с работой компонентов я написал приложение используя только на нативные элементы контроля формы.
+В таком виде приложение не соответствовало дизайну но обладало keyboard a11y и было без явных семантических проблем.
 
-### `npm test`
+Следующим шагом было внедрение TypeScript.
+На этом этапе у меня было очень много проблем. Я немного ознакомился с документацией и основными принципами, но такого поверхностного ознакомления явно не хватило, чтобы осознанно переписать приложение. Вся моя работа в итоге сводилась к тому, чтобы исправить ошибки компилятора любой ценой. В ходе такой работы код стал содержать некоторое количество нелогичных и излишних строк.
+Я обязательно вернусь к изучению TS с планомерным и последовательным подходом.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Последним этапом я внедрил компонент выбора города, который наиболее соответствует дизайн-макету и реализовал на нем базовое управление с клавиатуры. Применение этого компонента явно не пошло семантике на пользу.
 
-### `npm run build`
+## Список выполненных требований:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- [x] Проект должен быть написан на React + TypeScript.
+- [x] Для компонентов нужно использовать React hooks.
+- [x] Должны быть использованы только самостоятельно разработанные компоненты
+      и нативные HTML-контролы. Использование UI-фреймворков или других готовых
+      решений не допускается.
+- Верстка должны быть:
+- [x] адаптивной,
+- [ ] семантически правильной. (Вызывает сомнения из-за кастомного компонента выбора даты)
+- [x] соответствовать методологии БЭМ.
+- [x] Должна присутствовать реальная интеграция с внешним API.
+- [x] Необходимо использовать ESLint со старнадрным конфигом. (Использован ts-standard)
+- [x] Исходный код выполненного задания вместе со всей историей коммитов должен
+      быть размещен на GitHub.
+- [x] Приложение должно быть доступно на pages.github.com.
+- [x] Проект должен содержать корневой README.md файл с пояснениями
