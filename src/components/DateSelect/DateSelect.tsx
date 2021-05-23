@@ -1,6 +1,5 @@
-import { useState, useRef } from 'react';
+import { useState, FunctionComponent } from 'react';
 import styles from './DateSelect.module.css';
-import { FunctionComponent } from 'react';
 
 interface DateSelectProps {
   selectDate: Function;
@@ -8,8 +7,6 @@ interface DateSelectProps {
 
 const DateSelect: FunctionComponent<DateSelectProps> = ({ selectDate }) => {
   const [selectedValue, setSelectedValue] = useState('');
-
-  const dateInput = useRef<HTMLInputElement>(null);
 
   const getDateString = (dateObj: Date) => {
     let year = dateObj.getUTCFullYear();
@@ -49,7 +46,6 @@ const DateSelect: FunctionComponent<DateSelectProps> = ({ selectDate }) => {
   return (
     <div className={styles.wrapper}>
       <input
-        ref={dateInput}
         type='date'
         className={
           isFilled()

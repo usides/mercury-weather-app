@@ -1,11 +1,15 @@
 import cities from '../../city_conf';
-import { useState } from 'react';
+import { useState, FunctionComponent } from 'react';
 import styles from './CitySelect.module.css';
 
-const CitySelect = ({ selectCity }) => {
+interface CitySelectProps {
+  selectCity: Function;
+}
+
+const CitySelect: FunctionComponent<CitySelectProps> = ({ selectCity }) => {
   const [selectedValue, setSelectedValue] = useState('Select city');
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selected = e.target.value;
     selectCity(selected);
     setSelectedValue(selected);
