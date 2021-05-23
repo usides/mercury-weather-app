@@ -160,6 +160,7 @@ function App() {
           headerText='7 Days Forecast'
         >
           <form>
+            {/* <CitySelect selectCity={selectCityForForecast} /> */}
             <CitySelect selectCity={selectCityForForecast} />
           </form>
           {Boolean(forecastToShow.length) && (

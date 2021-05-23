@@ -4,7 +4,7 @@
   max-width: 252px;
 }
 
-.custom_select::after {
+/* .custom_select__input::after {
   content: '';
   display: block;
   position: absolute;
@@ -15,27 +15,106 @@
   height: 16px;
   transform: translateY(-50%);
   cursor: pointer;
-}
+} */
 
-.custom_select__select {
+.custom_select__field {
   position: relative;
   font-family: 'Ubuntu', sans-serif;
   font-weight: 400;
   font-size: 1rem;
   display: block;
-  padding: 15px 0;
+  padding: 15px 0 15px 15px;
   width: 100%;
   height: 100%;
   border-radius: 8px;
   color: #8083a4;
   background-color: #f8f8fa;
   border: solid 2px rgba(128, 131, 164, 0.2);
-  padding-left: 15px;
   outline: none;
   cursor: pointer;
   appearance: none;
+  text-align: left;
 }
 
+.custom_select__field:hover {
+  border-color: #8083a4;
+}
+
+.custom_select__field___active {
+  border-color: #373af5;
+}
+
+.custom_select__field___active:hover {
+  border-color: #373af5;
+}
+
+.custom_select__field___filled {
+  color: #2c2d76;
+}
+
+.field__text_holder {
+  margin: 0;
+  padding: 0;
+}
+
+.field__logo {
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  width: 16px;
+  height: 16px;
+  transform: translateY(-50%);
+}
+
+.custom_select__options_pane {
+  position: absolute;
+  width: 100%;
+  background-color: #fff;
+  border: solid 2px #f8f8fa;
+  border-radius: 8px;
+  top: calc(100% + 10px);
+  max-height: 200px;
+  overflow-y: scroll;
+  z-index: 1;
+  box-shadow: 14px 14px 20px 0px rgba(5, 6, 114, 0.2);
+}
+
+.custom_select__options_pane___hidden {
+  display: none;
+}
+
+.custom_select__options_pane::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom_select__options_pane::-webkit-scrollbar-thumb {
+  background: #cccddb;
+  border-radius: 2px;
+}
+
+.options_pane__list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.options_pane__item {
+  list-style-type: none;
+  text-align: left;
+  padding: 15px 10px 15px 10px;
+  margin-left: 5px;
+  margin-right: 10px;
+  color: #2c2d76;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.options_pane__item:hover {
+  background-color: #f8f8fa;
+}
+
+/*  */
 .custom_select__select___filled {
   color: #2c2d76;
 }
