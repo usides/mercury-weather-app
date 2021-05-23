@@ -4,20 +4,26 @@ import styles from './CitySelect.module.css';
 import chevronBottom from './chevron-bottom.png';
 import chevronTop from './chevron-top.png';
 
-function CitySelect2({ selectCity }) {
-  const [selectedValue, setSelectedValue] = useState('Select city');
+interface CitySelectProps {
+  selectCity: Function;
+}
+
+const CitySelect: FunctionComponent<CitySelectProps> = ({ selectCity }) => {
+  const [selectedValue, setSelectedValue] =
+    useState<String | null>('Select city');
   const [openStatus, setOpenStatus] = useState(false);
 
   const toggleOptions = () => {
     setOpenStatus((state) => (state = !state));
   };
 
-  const handleOptionClick = (e) => {
-    const li = e.target.closest('li');
+  const handleOptionClick = (e: React.MouseEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLLIElement;
+    const li = target.closest('li');
     if (!li) return;
-    const selected = li.textContent;
-    setSelectedValue(selected);
-    selectCity(selected);
+
+    setSelectedValue(li.textContent);
+    selectCity(li.textContent);
     toggleOptions();
   };
 
@@ -68,6 +74,6 @@ function CitySelect2({ selectCity }) {
       </div>
     </div>
   );
-}
+};
 
-export default CitySelect2;
+export default CitySelect;
