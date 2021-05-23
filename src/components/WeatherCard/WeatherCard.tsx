@@ -1,16 +1,16 @@
-import styles from './WeatherCard.module.css';
-import { FunctionComponent } from 'react';
+import styles from './WeatherCard.module.css'
+import { FunctionComponent } from 'react'
 
 interface WeatherCardProps {
-  date: string;
-  icon: string;
-  temp: string;
+  date: string
+  icon: string
+  temp: string
 }
 
 const WeatherCard: FunctionComponent<WeatherCardProps> = ({
   date,
   icon,
-  temp,
+  temp
 }) => {
   return (
     <div className={styles.card}>
@@ -18,7 +18,7 @@ const WeatherCard: FunctionComponent<WeatherCardProps> = ({
       <img className={styles.card__img} src={icon} alt='weather icon' />
       <p className={styles.card__temp}>{temp}</p>
     </div>
-  );
-};
+  )
+}
 
-export default WeatherCard;
+export default WeatherCard

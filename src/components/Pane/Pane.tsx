@@ -1,16 +1,16 @@
-import styles from './Pane.module.css';
-import placeholder from './placeholder.png';
-import { FunctionComponent } from 'react';
+import styles from './Pane.module.css'
+import placeholder from './placeholder.png'
+import { FunctionComponent } from 'react'
 
 interface PaneProps {
-  headerText: string;
-  isPlaceholder: boolean;
+  headerText: string
+  isPlaceholder: boolean
 }
 
 const Pane: FunctionComponent<PaneProps> = ({
   headerText,
   isPlaceholder,
-  children,
+  children
 }) => {
   return (
     <section className={styles.pane}>
@@ -29,7 +29,7 @@ const Pane: FunctionComponent<PaneProps> = ({
         </>
       )}
     </section>
-  );
-};
+  )
+}
 
-export default Pane;
+export default Pane

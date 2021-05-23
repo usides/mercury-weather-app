@@ -1,47 +1,47 @@
-import { useState, FunctionComponent } from 'react';
-import styles from './DateSelect.module.css';
+import { useState, FunctionComponent } from 'react'
+import styles from './DateSelect.module.css'
 
 interface DateSelectProps {
-  selectDate: Function;
+  selectDate: Function
 }
 
 const DateSelect: FunctionComponent<DateSelectProps> = ({ selectDate }) => {
-  const [selectedValue, setSelectedValue] = useState('');
+  const [selectedValue, setSelectedValue] = useState('')
 
   const getDateString = (dateObj: Date) => {
-    let year = dateObj.getUTCFullYear();
-    let date =
+    const year = dateObj.getUTCFullYear()
+    const date =
       String(dateObj.getUTCDate()).length > 1
         ? String(dateObj.getUTCDate())
-        : '0' + dateObj.getUTCDate();
-    let month =
+        : '0' + dateObj.getUTCDate()
+    const month =
       String(dateObj.getUTCMonth() + 1).length > 1
         ? String(dateObj.getUTCMonth() + 1)
-        : '0' + (dateObj.getUTCMonth() + 1);
+        : '0' + (dateObj.getUTCMonth() + 1)
 
-    return `${year}-${month}-${date}`;
-  };
+    return `${year}-${month}-${date}`
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selected = e.target.value;
-    const selectedDt = e.target.valueAsNumber;
+    const selected = e.target.value
+    const selectedDt = e.target.valueAsNumber
 
-    setSelectedValue(selected);
-    selectDate(selectedDt / 1000);
-  };
+    setSelectedValue(selected)
+    selectDate(selectedDt / 1000)
+  }
 
   const isFilled = () => {
-    if (selectedValue !== '') return true;
-    return false;
-  };
+    if (selectedValue !== '') return true
+    return false
+  }
 
-  const maxDate = new Date();
-  maxDate.setDate(maxDate.getDate() - 1);
-  const maxDateString = getDateString(maxDate);
+  const maxDate = new Date()
+  maxDate.setDate(maxDate.getDate() - 1)
+  const maxDateString = getDateString(maxDate)
 
-  const minDate = new Date();
-  minDate.setDate(minDate.getDate() - 5);
-  const minDateString = getDateString(minDate);
+  const minDate = new Date()
+  minDate.setDate(minDate.getDate() - 5)
+  const minDateString = getDateString(minDate)
 
   return (
     <div className={styles.wrapper}>
@@ -61,7 +61,7 @@ const DateSelect: FunctionComponent<DateSelectProps> = ({ selectDate }) => {
         <p className={styles.wrapper__input_placeholder}>Select date</p>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default DateSelect;
+export default DateSelect
