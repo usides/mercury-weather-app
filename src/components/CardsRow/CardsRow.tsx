@@ -1,7 +1,16 @@
 import styles from './CardsRow.module.css';
 import WeatherCard from '../WeatherCard/WeatherCard';
+import { FunctionComponent } from 'react';
 
-const CardsRow = ({ cardsData, changeForecastToShow }) => {
+interface CardsRowProps {
+  cardsData: Array<any>;
+  changeForecastToShow: Function;
+}
+
+const CardsRow: FunctionComponent<CardsRowProps> = ({
+  cardsData,
+  changeForecastToShow,
+}) => {
   return (
     <div className={styles.row}>
       <button

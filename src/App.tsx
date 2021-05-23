@@ -40,8 +40,7 @@ function App() {
       days: [],
       head: 0,
     });
-  const [forecastToShow, setForecastToShow] =
-    useState<Array<Object> | null>(null);
+  const [forecastToShow, setForecastToShow] = useState<Array<Object>>([]);
   const [currentGoneDayFields, setCurrentGoneDayFields] =
     useState<CurrentGoneDayFields>({
       dt: '',
@@ -83,7 +82,7 @@ function App() {
   }, [currentForecastData, gap, isPageShort]);
 
   const changeForecastToShow = (direction: string) => {
-    if (forecastToShow === null) return;
+    if (forecastToShow.length === 0) return;
     if (direction === 'right') {
       if (currentForecastData.head + gap >= currentForecastData.days.length)
         return;
@@ -156,13 +155,13 @@ function App() {
       </header>
       <main className='main_section'>
         <Pane
-          isPlaceholder={!Boolean(forecastToShow)}
+          isPlaceholder={!Boolean(forecastToShow.length)}
           headerText='7 Days Forecast'
         >
           <form>
             <CitySelect selectCity={selectCityForForecast} />
           </form>
-          {Boolean(forecastToShow) && (
+          {Boolean(forecastToShow.length) && (
             <CardsRow
               cardsData={forecastToShow}
               changeForecastToShow={changeForecastToShow}
