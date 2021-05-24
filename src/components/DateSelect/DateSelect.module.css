@@ -22,6 +22,7 @@
   appearance: none;
   -webkit-appearance: none;
   margin: 0;
+  min-height: 52px;
 }
 
 .wrapper::after {
@@ -76,9 +77,22 @@
   text-align: left;
 }
 
+.wrapper__alert {
+  position: absolute;
+  margin: 0;
+  bottom: -20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #e5596d;
+}
+
 @media screen and (max-width: 650px) {
   .wrapper {
     width: auto;
     min-width: auto;
+  }
+
+  .wrapper__alert {
+    font-size: 0.7rem;
   }
 }
