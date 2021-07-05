@@ -1,6 +1,5 @@
 # Mercury Academy Weather App
 
-// "homepage": "https://usides.github.io/mercury-weather-app",
 [DEMO](https://usides.github.io/mercury-weather-app/)
 
 Добрый день, Mercury Development Team!
