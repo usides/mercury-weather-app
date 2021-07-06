@@ -36,6 +36,14 @@ code {
   flex-direction: column;
 }
 
+.offline {
+  display: block;
+  position: absolute;
+  right: 5px;
+  top: 0px;
+  width: 35px;
+}
+
 .header {
   flex-shrink: 0;
   padding: 2rem 0 2rem;
