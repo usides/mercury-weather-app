@@ -11,7 +11,11 @@ import { clientsClaim } from 'workbox-core';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
-import { StaleWhileRevalidate, NetworkFirst } from 'workbox-strategies';
+import {
+  StaleWhileRevalidate,
+  NetworkFirst,
+  CacheFirst,
+} from 'workbox-strategies';
 
 clientsClaim();
 
@@ -62,10 +66,10 @@ registerRoute(
   }),
 );
 
-const openWeatherRegexp = new RegExp('openweathermap');
+// const openWeatherRegexp = new RegExp('openweathermap');
 registerRoute(
-  ({ url }) => openWeatherRegexp.test(url.pathname),
-  new NetworkFirst({
+  new RegExp('https://(api.)?openweathermap.org/(.*)'),
+  new StaleWhileRevalidate({
     cacheName: 'openWeather',
     plugins: [new ExpirationPlugin({ maxAgeSeconds: 3700 })],
   }),
