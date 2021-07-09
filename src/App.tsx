@@ -10,6 +10,7 @@ import DateSelect from './components/DateSelect/DateSelect'
 import WeatherCard from './components/WeatherCard/WeatherCard'
 import { useMediaQuery } from './media_query'
 import cities from './city_conf'
+import offline from './assets/offline.png'
 
 interface CurrentForecastData {
   days: Object[]
@@ -52,12 +53,19 @@ function App () {
   const [currentGoneDayWeatherData, setCurrentGoneDayWeatherData] =
     useState<CurrentGoneDayWeatherData>({})
 
+  const [isOffline, setIsOffline] = useState(false)
+  const [isLink, setIsLink] = useState(false)
+
   const isPageShort = useMediaQuery('(max-width: 650px)')
   const gap = isPageShort ? 1 : 3
 
   const selectCityForForecast = async (city: keyof typeof cities) => {
-    const forecast = await getSevenDaysForecast(city)
-    setCurrentForecastData({ days: forecast, head: 0 })
+    try {
+      const forecast = await getSevenDaysForecast(city)
+      setCurrentForecastData({ days: forecast, head: 0 })
+    } catch {
+      setForecastToShow([])
+    }
   }
 
   const getSevenDaysForecast = async (city: keyof typeof cities) => {
@@ -83,7 +91,9 @@ function App () {
   const changeForecastToShow = (direction: string) => {
     if (forecastToShow.length === 0) return
     if (direction === 'right') {
-      if (currentForecastData.head + gap >= currentForecastData.days.length) { return }
+      if (currentForecastData.head + gap >= currentForecastData.days.length) {
+        return
+      }
       setCurrentForecastData((state) => ({ ...state, head: state.head + 1 }))
     } else if (direction === 'left') {
       if (currentForecastData.head === 0) return
@@ -124,8 +134,65 @@ function App () {
     }
   }, [currentGoneDayFields]) // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    function hasNetwork (online: boolean) {
+      if (online) {
+        setIsOffline(false)
+      } else {
+        setIsOffline(true)
+      }
+    }
+
+    window.addEventListener('load', () => {
+      hasNetwork(navigator.onLine)
+
+      window.addEventListener('online', () => {
+        hasNetwork(true)
+      })
+
+      window.addEventListener('offline', () => {
+        hasNetwork(false)
+      })
+    })
+
+    function addCurrentPosition (position: GeolocationPosition) {
+      const { latitude, longitude } = position.coords
+      cities['Current Position'] = { lat: latitude, lon: longitude }
+    }
+
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(addCurrentPosition, undefined, {
+        enableHighAccuracy: false,
+        maximumAge: 0
+      })
+    }
+
+    if (navigator.registerProtocolHandler) {
+      navigator.registerProtocolHandler(
+        'web+weather',
+        'https://weather-app-2a554.web.app/index.html?char=%s',
+        'Title'
+      )
+
+      const processLink = () => {
+        const loc = window.location.href
+        const params = new URL(loc).searchParams
+        if (params.has('char')) {
+          const coords = params.get('char')!.split('web+weather:')[1].split(',')
+          const lat = Number(coords[0])
+          const lon = Number(coords[1])
+          cities.Link = { lat, lon }
+          setIsLink(true)
+        }
+      }
+
+      processLink()
+    }
+  }, [])
+
   return (
     <div className='App'>
+      {isOffline && <img src={offline} alt='offline' className='offline' />}
       <header className='header'>
         <h1 className='heading'>
           <span className='heading__left'>Weather</span>
@@ -139,6 +206,7 @@ function App () {
         >
           <form>
             <CitySelect
+              link={isLink}
               selectCity={selectCityForForecast}
               changeForecastToShow={changeForecastToShow}
             />
@@ -151,9 +219,7 @@ function App () {
           )}
         </Pane>
         <Pane
-          isPlaceholder={
-            Object.keys(currentGoneDayWeatherData).length === 0
-          }
+          isPlaceholder={Object.keys(currentGoneDayWeatherData).length === 0}
           headerText='Forecast for a Date in the Past'
         >
           <form className='form'>

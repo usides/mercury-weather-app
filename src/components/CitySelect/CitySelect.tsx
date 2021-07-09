@@ -7,18 +7,28 @@ import chevronTop from './chevron-top.png'
 interface CitySelectProps {
   selectCity: Function
   changeForecastToShow?: Function
+  link?: boolean
 }
 
 const CitySelect: FunctionComponent<CitySelectProps> = ({
   selectCity,
-  changeForecastToShow
+  changeForecastToShow,
+  link
 }) => {
-  const [selectedValue, setSelectedValue] =
-    useState<String | null>('Select city')
+  const [selectedValue, setSelectedValue] = useState<String | null>(
+    'Select city'
+  )
   const [openStatus, setOpenStatus] = useState(false)
   const [cityCounter, setCityCounter] = useState(-1)
 
   const citiesArray = Object.keys(cities).slice(1)
+
+  useEffect(() => {
+    if (link) {
+      const index = citiesArray.indexOf('Link' || '', 0)
+      setCityCounter(index)
+    }
+  }, [link, citiesArray])
 
   useEffect(() => {
     if (cityCounter === -1) return

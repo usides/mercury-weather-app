@@ -1,0 +1,5 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target" : { "namespace": "android_app", "package_name": "com.weather.app.usides",
+                   "sha256_cert_fingerprints": ["69:9E:C1:D6:52:C4:41:7C:46:4C:A5:8A:0F:67:5F:B6:C2:66:DC:9D:B3:5A:0D:A2:62:DD:BB:A6:72:81:FF:6C"] }
+    }]

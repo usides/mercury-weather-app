@@ -19,7 +19,7 @@ function tempInCelsius (tempK: string) {
 }
 
 const getIconLink = (iconCode: string) =>
-  `http://openweathermap.org/img/wn/${iconCode}@2x.png`
+  `https://openweathermap.org/img/wn/${iconCode}@2x.png`
 
 interface AdaptWeatherData {
   dt: string

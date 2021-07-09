@@ -1,4 +1,8 @@
-const cities = {
+interface Cities {
+  [key: string]: { lat: number, lon: number }
+}
+
+const cities: Cities = {
   '': { lat: 0, lon: 0 },
   Samara: { lat: 53.195873, lon: 50.100193 },
   Togliatti: { lat: 53.507836, lon: 49.420393 },
