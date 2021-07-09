@@ -2,7 +2,7 @@
 
 [DEMO](https://usides.github.io/mercury-weather-app/)
 
-Добрый день, Mercury Development Team,
+Добрый день, Mercury Development Team!
 
 Большое спасибо за отлично подготовленное и оформленное тестовое задание.
 
