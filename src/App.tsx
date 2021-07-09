@@ -54,6 +54,7 @@ function App() {
     useState<CurrentGoneDayWeatherData>({});
 
   const [isOffline, setIsOffline] = useState(false);
+  const [isLink, setIsLink] = useState(false);
 
   const isPageShort = useMediaQuery('(max-width: 650px)');
   const gap = isPageShort ? 1 : 3;
@@ -165,6 +166,28 @@ function App() {
         maximumAge: 0,
       });
     }
+
+    if (navigator.registerProtocolHandler) {
+      navigator.registerProtocolHandler(
+        'web+weather',
+        'https://weather-app-2a554.web.app/index.html?char=%s',
+        'Title',
+      );
+
+      const processLink = () => {
+        let loc = window.location.href;
+        let params = new URL(loc).searchParams;
+        if (params.has('char')) {
+          let coords = params.get('char')!.split('web+weather:')[1].split(',');
+          let lat = Number(coords[0]);
+          let lon = Number(coords[1]);
+          cities['Link'] = { lat, lon };
+          setIsLink(true);
+        }
+      };
+
+      processLink();
+    }
   }, []);
 
   return (
@@ -183,6 +206,7 @@ function App() {
         >
           <form>
             <CitySelect
+              link={isLink}
               selectCity={selectCityForForecast}
               changeForecastToShow={changeForecastToShow}
             />

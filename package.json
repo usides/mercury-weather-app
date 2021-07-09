@@ -1,6 +1,5 @@
 {
   "name": "mercury-weather-app",
-  "homepage": "https://usides.github.io/mercury-weather-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -48,3 +47,5 @@
     "ts-standard": "^10.0.0"
   }
 }
+
+
